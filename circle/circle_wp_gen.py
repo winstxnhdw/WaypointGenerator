@@ -1,13 +1,9 @@
-'''
-This is a waypoint generator for circular roads.
-'''
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib.pyplot import figure
 
 def main():
+
     mode = input("Point or Angle mode (p/a): ")
 
     # Point mode
@@ -20,6 +16,7 @@ def main():
         main()
 
 def point_mode():
+
     try:
         path = input("Path mode (inner/outer/custom): ")
         if path == "inner":
@@ -49,15 +46,13 @@ def point_mode():
     X = r * np.cos(theta)
     Y = r * np.sin(theta)
 
-    print(X)
-    print(Y)
-
     axis = {'X-axis': X, 'Y-axis': Y}
     df = pd.DataFrame(axis, columns= ['X-axis', 'Y-axis'])
     df.to_csv("waypoints.csv", index = False)
     plot_waypoints(df)
 
 def angle_mode():
+
     try:
         path = input("Path mode (inner/outer/custom): ")
         if path == "inner":
@@ -85,7 +80,7 @@ def angle_mode():
     Y = []
     runs = int(2*np.pi/angle)
 
-    for n in np.arange(0, 2*np.pi, angle):
+    for _ in np.arange(0, 2*np.pi, angle):
         x = r * np.cos(theta)
         y = r * np.sin(theta)
         theta = theta + angle
@@ -94,8 +89,6 @@ def angle_mode():
 
     X.append(r)
     Y.append(0)
-    print(X)
-    print(Y)
     print("\n This program has looped ", runs, " times.")
 
     axis = {'X-axis': X, 'Y-axis': Y}
@@ -104,14 +97,20 @@ def angle_mode():
     plot_waypoints(df)
 
 def plot_waypoints(df):
-    figure(num=None, figsize=(10, 10), dpi=80, facecolor='w', edgecolor='k')
+
+    map_size = 100
+
+    fig = plt.figure()
+    ax = plt.axes()
+    ax.set_aspect('equal', adjustable='box')
+
     x = df['X-axis']
     y = df['Y-axis']
     plt.xlabel("X-axis")
     plt.ylabel("Y-axis")
-    plt.xlim(-110, 110)
-    plt.ylim(-110, 110)
-    plt.plot(x, y)
+    plt.xlim(-map_size, map_size)
+    plt.ylim(-map_size, map_size)
+    ax.plot(x, y)
     plt.show()
     
 if __name__ == "__main__":
