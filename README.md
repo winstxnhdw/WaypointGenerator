@@ -22,7 +22,7 @@ Optional arguments:
 Press `C` to connect the last and first waypoints. <br>
 Generated waypoints are **only exported at exit**.
 >
-## User-selected Waypoints
+## User Selected Waypoints
 ```bash
 $ python main.py -c
 ```
@@ -30,7 +30,7 @@ $ python main.py -c
 	<img src="resources/clickgen.gif" />
 </div>
 
-## Random Generated Waypoints
+## Randomly Generated Waypoints
 ```bash
 $ python main.py -r <number-of-waypoints>
 ```
@@ -38,7 +38,7 @@ $ python main.py -r <number-of-waypoints>
 	<img src="resources/randgen.gif" />
 </div>
 
-## Circle Waypoints
+## Circular Generated Waypoints
 circle_wp_gen.py is primarily used to generate waypoints of a certain radius and smoothness. The user is given two different smoothness modes which can be configured via the command-line interface.
 ```bash
 $ cd circle
