@@ -38,6 +38,18 @@ $ python main.py -r <number-of-waypoints>
 	<img src="resources/randgen.gif" />
 </div>
 
+## Circle Waypoints
+circle_wp_gen.py is primarily used to generate waypoints of a certain radius and smoothness. The user is given two different smoothness modes which can be configured via the command-line interface.
+```bash
+$ cd circle
+$ python circle_wp_gen.py
+```
+> The user should have `numpy` installed.
+>
+<div align="center">
+	<img src="resources/circlegen.gif" />
+</div>
+
 ## Additional Information
 Exported waypoints can be imported using the `pandas` library.
 ```python
