@@ -91,6 +91,8 @@ def rand_gen(ax, fig, n, map_size, line_colour, point_colour):
 
     x = []
     y = []
+
+    padding = 0.1 * map_size
   
     def onpress(event):
 
@@ -103,8 +105,8 @@ def rand_gen(ax, fig, n, map_size, line_colour, point_colour):
             ax.set_ylim(-map_size, map_size)
 
             for _ in range(0, n):
-                x.append(rand.uniform(-map_size + 10, map_size - 10))
-                y.append(rand.uniform(-map_size + 10, map_size - 10))
+                x.append(rand.uniform(-map_size + padding, map_size - padding))
+                y.append(rand.uniform(-map_size + padding, map_size - padding))
 
             ax.plot(x, y, '-', color=line_colour)
             ax.plot(x, y, '.', color=point_colour)
