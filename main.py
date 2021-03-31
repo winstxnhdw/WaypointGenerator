@@ -10,10 +10,12 @@ def main(args):
 
         axis = {'X-axis': x, 'Y-axis': y}
         df = pd.DataFrame(axis, columns= ['X-axis', 'Y-axis'])
-        df.to_csv("data/waypoints.csv", index = False)
+        df.to_csv("waypoints.csv", index = False)
 
     try:
         map_size = 100
+        line_colour = '#F0A39A'
+        point_colour = '#383831'
 
         fig = plt.figure()
         ax = plt.axes()
@@ -22,21 +24,22 @@ def main(args):
         ax.set_ylim(-map_size, map_size)
 
         if args.random:
-            x, y = rand_gen(ax, fig, args.random, map_size)
+            x, y = rand_gen(ax, fig, args.random, map_size, line_colour, point_colour)
 
         elif args.click:
-            x, y = click_gen(ax, fig)
+            x, y = click_gen(ax, fig, map_size, line_colour, point_colour)
 
         else:
             raise Exception("Invalid argument.")
 
+        plt.grid()
         plt.show()
         atexit.register(exit_handler)
 
     except KeyboardInterrupt:
         atexit.register(exit_handler)
 
-def click_gen(ax, fig):
+def click_gen(ax, fig, map_size, line_colour, point_colour):
     
     x = []
     y = []
@@ -46,26 +49,77 @@ def click_gen(ax, fig):
         x.append(event.xdata)
         y.append(event.ydata)
 
-        ax.plot(x, y, '-r')
-        ax.plot(x, y, 'bo')
+        ax.plot(x, y, '-', color=line_colour)
+        ax.plot(x, y, '.', color=point_colour)
 
         fig.canvas.draw()
+
+    def onpress(event):
+        
+        if event.key == 'x':
+            del x[:]
+            del y[:]
+            ax.cla()
+            plt.grid()
+            ax.set_xlim(-map_size, map_size)
+            ax.set_ylim(-map_size, map_size)
+
+            fig.canvas.draw()
+
+        elif event.key == 'c':
+            x.append(x[0])
+            y.append(y[0])
+
+            ax.plot(x, y, '-', color=line_colour)
+            ax.plot(x, y, '.', color=point_colour)
+
+            fig.canvas.draw()
+        
+        else:
+            pass
         
     fig.canvas.mpl_connect('button_press_event', onclick)
+    fig.canvas.mpl_connect('key_press_event', onpress)
 
     return x, y
 
-def rand_gen(ax, fig, n, map_size):
+def rand_gen(ax, fig, n, map_size, line_colour, point_colour):
 
     x = []
     y = []
-    
-    for _ in range(0, n):
-        x.append(rand.uniform(-map_size + 10, map_size - 10))
-        y.append(rand.uniform(-map_size + 10, map_size - 10))
+  
+    def onpress(event):
 
-    ax.plot(x, y, '-r')
-    ax.plot(x, y, 'bo')   
+        if event.key == 'x':
+            del x[:]
+            del y[:]
+            ax.cla()
+            plt.grid()
+            ax.set_xlim(-map_size, map_size)
+            ax.set_ylim(-map_size, map_size)
+
+            for _ in range(0, n):
+                x.append(rand.uniform(-map_size + 10, map_size - 10))
+                y.append(rand.uniform(-map_size + 10, map_size - 10))
+
+            ax.plot(x, y, '-', color=line_colour)
+            ax.plot(x, y, '.', color=point_colour)
+
+            fig.canvas.draw()
+
+        elif event.key == 'c':
+            x.append(x[0])
+            y.append(y[0])
+
+            ax.plot(x, y, '-', color=line_colour)
+            ax.plot(x, y, '.', color=point_colour)
+
+            fig.canvas.draw()
+
+        else:
+            pass
+
+    fig.canvas.mpl_connect('key_press_event', onpress)
 
     return x, y
 
