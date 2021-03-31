@@ -19,7 +19,8 @@ Required arguments:
 -c, --click     generates user-selected waypoint positions   
 ```
 > Press `X` to clear selected waypoints or to generate a new set of randomly generated waypoints. <br>
-Press `C` to connect the last and first waypoints.
+Press `C` to connect the last and first waypoints. <br>
+Generated waypoints are **only exported at exit**.
 >
 ## User-selected Waypoints
 ```bash
