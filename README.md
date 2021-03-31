@@ -60,7 +60,7 @@ Optional arguments:
 ```
 
 ## Additional Information
-Exported waypoints can be imported using the `pandas` library.
+Exported waypoints can be imported using the `pandas` library with the following block.
 ```python
 import pandas as pd
 
