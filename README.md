@@ -13,7 +13,7 @@ $ python main.py <flag> <value>
 ```
 
 ```yaml
-Required arguments:
+Optional arguments:
 -h, --help      show this help message and exit
 -r , --random   generates a user-selected amount of random waypoints
 -c, --click     generates user-selected waypoint positions   
