@@ -1,31 +1,53 @@
+import argparse
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def main():
+def main(args):
 
     mode = input("Point or Angle mode (p/a): ")
 
-    # Point mode
-    if mode == "p":
-        point_mode()
-    elif mode == "a":
-        angle_mode()
-    else:
-        print("Invalid input.")
-        main()
+    if args.xradius and args.yradius:
+        if mode == "p":
+            point_mode(args.xradius, args.yradius)
 
-def point_mode():
+        elif mode == "a":
+            angle_mode(args.xradius, args.yradius)
 
-    try:
-        r = float(input("Radius (m): "))
-        points = int(input("Number of points: "))
+        else:
+            print("Invalid input.")
+            main(args)
     
-    except:
-        print("Invalid input.")
-        point_mode()
+    else:
+        if mode == "p":
+            point_mode()
 
-    print("\nRadius: ", r, "\nPoints: ", points)
+        elif mode == "a":
+            angle_mode()
+            
+        else:
+            print("Invalid input.")
+            main(args)
+
+def point_mode(a=1.0, b=1.0):
+
+    if a != b:
+        points = int(input("Number of points: "))
+
+        print("\na: {}\nb: {}\nPoints: {}".format(a, b, points))
+
+    else:
+        try:
+            r = float(input("Radius (m): "))
+            points = int(input("Number of points: "))
+            a = r
+            b = r
+        
+        except:
+            print("Invalid input.")
+            point_mode()
+
+        print("\nRadius: ", r, "\nPoints: ", points)
 
     theta = 0
 
@@ -33,25 +55,33 @@ def point_mode():
     Y = []
 
     theta = np.linspace(0, 2*np.pi, points)
-    X = r * np.cos(theta)
-    Y = r * np.sin(theta)
+    X = a * np.cos(theta)
+    Y = b * np.sin(theta)
 
     axis = {'X-axis': X, 'Y-axis': Y}
     df = pd.DataFrame(axis, columns= ['X-axis', 'Y-axis'])
     df.to_csv("waypoints.csv", index = False)
     plot_waypoints(df)
 
-def angle_mode():
+def angle_mode(a=1.0, b=1.0):
 
-    try:
-        r = float(input("Radius (m): "))
+    if a != b:
         degrees = float(input("Angle in degrees: "))
 
-    except:
-        print("Invalid input.")
-        angle_mode()
+        print("\na: {}\nb: {}\nAngle: {}".format(a, b, degrees))
 
-    print("\nRadius: ", r, "\nAngle: ", degrees)
+    else:
+        try:
+            r = float(input("Radius (m): "))
+            degrees = float(input("Angle in degrees: "))
+            a = r
+            b = r
+
+        except:
+            print("Invalid input.")
+            angle_mode()
+
+        print("\nRadius: ", r, "\nAngle: ", degrees)
 
     angle = np.radians(degrees)
     theta = 0
@@ -61,14 +91,14 @@ def angle_mode():
     runs = int(2*np.pi/angle)
 
     for _ in np.arange(0, 2*np.pi, angle):
-        x = r * np.cos(theta)
-        y = r * np.sin(theta)
+        x = a * np.cos(theta)
+        y = b * np.sin(theta)
         theta = theta + angle
         X.append(x)
         Y.append(y)
 
-    X.append(r)
-    Y.append(0)
+    X.append(X[0])
+    Y.append(Y[0])
 
     print("\n This program has looped ", runs, " times.")
 
@@ -79,8 +109,6 @@ def angle_mode():
 
 def plot_waypoints(df):
 
-    map_size = 100
-
     plt.figure()
     ax = plt.axes()
     ax.set_aspect('equal', adjustable='box')
@@ -89,10 +117,16 @@ def plot_waypoints(df):
     y = df['Y-axis']
     plt.xlabel("X-axis")
     plt.ylabel("Y-axis")
-    plt.xlim(-map_size, map_size)
-    plt.ylim(-map_size, map_size)
     ax.plot(x, y)
     plt.show()
+
+def parse_args():
+
+    parser = argparse.ArgumentParser(description='Generate a ellipse')
+    parser.add_argument('-a', '--xradius', type=float, metavar='', help='Radius of an ellipse on the x-axis')
+    parser.add_argument('-b', '--yradius', type=float, metavar='', help='Radius of an ellipse on the y-axis')
+    return parser.parse_known_args()
     
 if __name__ == "__main__":
-    main()
+    args, _ = parse_args()
+    main(args)
