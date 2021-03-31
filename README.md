@@ -44,7 +44,7 @@ circle_wp_gen.py is primarily used to generate waypoints of a certain radius and
 $ cd circle
 $ python circle_wp_gen.py
 ```
-> The user should have `numpy` installed.
+> The `numpy` library is required to run this script.
 >
 <div align="center">
 	<img src="resources/circlegen.gif" />
