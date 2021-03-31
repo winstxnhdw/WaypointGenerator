@@ -36,3 +36,14 @@ $ python main.py -r <number-of-waypoints>
 <div align="center">
 	<img src="resources/randgen.gif" />
 </div>
+
+## Additional Information
+Exported waypoints can be imported using pandas
+```python
+import pandas as pd
+
+dir_path = 'waypoints.csv'
+df = pd.read_csv(dir_path)
+x = df['X-axis'].values.tolist()
+y = df['Y-axis'].values.tolist()
+```
