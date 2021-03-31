@@ -67,14 +67,18 @@ def click_gen(ax, fig, map_size, line_colour, point_colour):
             fig.canvas.draw()
 
         elif event.key == 'c':
-            x.append(x[0])
-            y.append(y[0])
+            try:
+                x.append(x[0])
+                y.append(y[0])
+
+            except:
+                pass
 
             ax.plot(x, y, '-', color=line_colour)
             ax.plot(x, y, '.', color=point_colour)
 
             fig.canvas.draw()
-        
+    
         else:
             pass
         
@@ -108,9 +112,13 @@ def rand_gen(ax, fig, n, map_size, line_colour, point_colour):
             fig.canvas.draw()
 
         elif event.key == 'c':
-            x.append(x[0])
-            y.append(y[0])
+            try:
+                x.append(x[0])
+                y.append(y[0])
 
+            except:
+                pass
+            
             ax.plot(x, y, '-', color=line_colour)
             ax.plot(x, y, '.', color=point_colour)
 
