@@ -18,17 +18,7 @@ def main():
 def point_mode():
 
     try:
-        path = input("Path mode (inner/outer/custom): ")
-        if path == "inner":
-            r = 101.5
-        elif path == "outer":
-            r = 104.5
-        elif path == "custom":
-            r = float(input("Radius in metres (103.67): "))
-        else:
-            print("Invalid input.")
-            point_mode()
-        
+        r = float(input("Radius (m): "))
         points = int(input("Number of points: "))
     
     except:
@@ -54,17 +44,7 @@ def point_mode():
 def angle_mode():
 
     try:
-        path = input("Path mode (inner/outer/custom): ")
-        if path == "inner":
-            r = 101.5
-        elif path == "outer":
-            r = 104.5
-        elif path == "custom":
-            r = float(input("Radius in metres (103.67): "))
-        else:
-            print("Invalid input.")
-            point_mode()
-            
+        r = float(input("Radius (m): "))
         degrees = float(input("Angle in degrees: "))
 
     except:
@@ -89,6 +69,7 @@ def angle_mode():
 
     X.append(r)
     Y.append(0)
+
     print("\n This program has looped ", runs, " times.")
 
     axis = {'X-axis': X, 'Y-axis': Y}
@@ -100,7 +81,7 @@ def plot_waypoints(df):
 
     map_size = 100
 
-    fig = plt.figure()
+    plt.figure()
     ax = plt.axes()
     ax.set_aspect('equal', adjustable='box')
 
