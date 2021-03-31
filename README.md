@@ -38,7 +38,7 @@ $ python main.py -r <number-of-waypoints>
 </div>
 
 ## Additional Information
-Exported waypoints can be imported using pandas
+Exported waypoints can be imported using the `pandas` library.
 ```python
 import pandas as pd
 
