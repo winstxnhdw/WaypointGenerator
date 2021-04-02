@@ -42,7 +42,7 @@ $ python main.py -r <number-of-waypoints>
 circle_wp_gen.py is primarily used to generate waypoints of a certain radius and smoothness. The user is given two different smoothness modes which can be configured via the command-line interface.
 ```bash
 $ cd circle
-$ python circle_wp_gen.py <optional-flag> <optional-value>
+$ python circle_wp_gen.py -a <x-radius> -b <y-radius>
 ```
 > The `numpy` library is required to run this script.
 >
@@ -55,8 +55,6 @@ Optional arguments:
 -h, --help       show this help message and exit
 -a, --xradius    radius of an ellipse on the x-axis
 -b, --yradius    radius of an ellipse on the y-axis 
-
-# e.g. python circle_wp_gen.py -a 50 -b 20
 ```
 
 ## Additional Information
