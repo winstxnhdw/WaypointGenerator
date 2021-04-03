@@ -27,7 +27,7 @@ def main(args):
             x, y = rand_gen(ax, fig, args.random, map_size, line_colour, point_colour)
 
         elif args.click:
-            x, y = click_gen(ax, fig, map_size, line_colour, point_colour)
+            click_gen(ax, fig, map_size, line_colour, point_colour)
 
         else:
             raise Exception("Invalid argument.")
@@ -119,32 +119,27 @@ def rand_gen(ax, fig, n, map_size, line_colour, point_colour):
     ax.plot(x, y, '-', color=line_colour)
     ax.plot(x, y, '.', color=point_colour)
 
-    stored.append([x, y])
+    stored.append([x.copy(), y.copy()])
   
     def onpress(event):
 
         if event.key == 'z':
-            x = []
-            y = []
-            del x[:]
-            del y[:]
-            stored.pop()
-            x = stored[-1][0].copy()
-            y = stored[-1][1].copy()
+            try:
+                del x[:]
+                del y[:]
+                stored.pop()
+                x.extend(stored[-1][0])
+                y.extend(stored[-1][1])
 
-            ax.cla()
-            plt.grid()
-            ax.set_xlim(-map_size, map_size)
-            ax.set_ylim(-map_size, map_size)
+                ax.cla()
+                plt.grid()
+                ax.set_xlim(-map_size, map_size)
+                ax.set_ylim(-map_size, map_size)
 
-            ax.plot(x, y, '-', color=line_colour)
-            ax.plot(x, y, '.', color=point_colour)
-
-            fig.canvas.draw()
+            except:
+                return
 
         elif event.key == 'x':
-            x = []
-            y = []
             del x[:]
             del y[:]
             ax.cla()
@@ -156,12 +151,7 @@ def rand_gen(ax, fig, n, map_size, line_colour, point_colour):
                 x.append(rand.uniform(-map_size + padding, map_size - padding))
                 y.append(rand.uniform(-map_size + padding, map_size - padding))
 
-            stored.append([x, y])
-
-            ax.plot(x, y, '-', color=line_colour)
-            ax.plot(x, y, '.', color=point_colour)
-
-            fig.canvas.draw()
+            stored.append([x.copy(), y.copy()])
 
         elif event.key == 'c':
             try:
@@ -169,15 +159,14 @@ def rand_gen(ax, fig, n, map_size, line_colour, point_colour):
                 y.append(y[0])
 
             except:
-                pass
-            
-            ax.plot(x, y, '-', color=line_colour)
-            ax.plot(x, y, '.', color=point_colour)
-
-            fig.canvas.draw()
+                return
 
         else:
-            pass
+            return
+        
+        ax.plot(x, y, '-', color=line_colour)
+        ax.plot(x, y, '.', color=point_colour)
+        fig.canvas.draw()
 
     fig.canvas.mpl_connect('key_press_event', onpress)
 
