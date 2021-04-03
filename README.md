@@ -18,7 +18,8 @@ Optional arguments:
 -r, --random    generates a user-selected amount of random waypoints
 -c, --click     generates user-selected waypoint positions   
 ```
-> Press `X` to clear selected waypoints or to generate a new set of randomly generated waypoints. <br>
+> Press `Z` to undo a selected waypoint or revert to a previously generated set of waypoints. <br>
+Press `X` to clear selected waypoints or to generate a new set of randomly generated waypoints. <br>
 Press `C` to connect the last and first waypoints. <br>
 Generated waypoints are **only exported at exit**.
 >

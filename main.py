@@ -55,8 +55,25 @@ def click_gen(ax, fig, map_size, line_colour, point_colour):
         fig.canvas.draw()
 
     def onpress(event):
+
+        if event.key == 'z':
+            try:
+                x.pop()
+                y.pop()
+
+            except:
+                pass
+
+            ax.cla()
+            plt.grid()
+            ax.set_xlim(-map_size, map_size)
+            ax.set_ylim(-map_size, map_size)
+            ax.plot(x, y, '-', color=line_colour)
+            ax.plot(x, y, '.', color=point_colour)
+
+            fig.canvas.draw()
         
-        if event.key == 'x':
+        elif event.key == 'x':
             del x[:]
             del y[:]
             ax.cla()
@@ -91,12 +108,43 @@ def rand_gen(ax, fig, n, map_size, line_colour, point_colour):
 
     x = []
     y = []
+    stored = []
 
     padding = 0.1 * map_size
+
+    for _ in range(0, n):
+        x.append(rand.uniform(-map_size + padding, map_size - padding))
+        y.append(rand.uniform(-map_size + padding, map_size - padding))
+
+    ax.plot(x, y, '-', color=line_colour)
+    ax.plot(x, y, '.', color=point_colour)
+
+    stored.append([x, y])
   
     def onpress(event):
 
-        if event.key == 'x':
+        if event.key == 'z':
+            x = []
+            y = []
+            del x[:]
+            del y[:]
+            stored.pop()
+            x = stored[-1][0].copy()
+            y = stored[-1][1].copy()
+
+            ax.cla()
+            plt.grid()
+            ax.set_xlim(-map_size, map_size)
+            ax.set_ylim(-map_size, map_size)
+
+            ax.plot(x, y, '-', color=line_colour)
+            ax.plot(x, y, '.', color=point_colour)
+
+            fig.canvas.draw()
+
+        elif event.key == 'x':
+            x = []
+            y = []
             del x[:]
             del y[:]
             ax.cla()
@@ -107,6 +155,8 @@ def rand_gen(ax, fig, n, map_size, line_colour, point_colour):
             for _ in range(0, n):
                 x.append(rand.uniform(-map_size + padding, map_size - padding))
                 y.append(rand.uniform(-map_size + padding, map_size - padding))
+
+            stored.append([x, y])
 
             ax.plot(x, y, '-', color=line_colour)
             ax.plot(x, y, '.', color=point_colour)
