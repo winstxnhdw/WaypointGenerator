@@ -65,25 +65,10 @@ def click_gen(ax, fig, map_size, line_colour, point_colour):
 
             except:
                 pass
-
-            ax.cla()
-            plt.grid()
-            ax.set_xlim(-map_size, map_size)
-            ax.set_ylim(-map_size, map_size)
-            ax.plot(x, y, '-', color=line_colour)
-            ax.plot(x, y, '.', color=point_colour)
-
-            fig.canvas.draw()
         
         elif event.key == 'x':
             del x[:]
             del y[:]
-            ax.cla()
-            plt.grid()
-            ax.set_xlim(-map_size, map_size)
-            ax.set_ylim(-map_size, map_size)
-
-            fig.canvas.draw()
 
         elif event.key == 'c':
             try:
@@ -92,15 +77,18 @@ def click_gen(ax, fig, map_size, line_colour, point_colour):
 
             except:
                 pass
-
-            ax.plot(x, y, '-', color=line_colour)
-            ax.plot(x, y, '.', color=point_colour)
-
-            fig.canvas.draw()
     
         else:
             pass
-        
+    
+        ax.cla()
+        plt.grid()
+        ax.set_xlim(-map_size, map_size)
+        ax.set_ylim(-map_size, map_size)
+        ax.plot(x, y, '-', color=line_colour)
+        ax.plot(x, y, '.', color=point_colour)
+        fig.canvas.draw()
+
     fig.canvas.mpl_connect('button_press_event', onclick)
     fig.canvas.mpl_connect('key_press_event', onpress)
 
@@ -155,21 +143,12 @@ def rand_gen(ax, fig, n, map_size, line_colour, point_colour):
                 x.extend(stored[-1][0])
                 y.extend(stored[-1][1])
 
-                ax.cla()
-                plt.grid()
-                ax.set_xlim(-map_size, map_size)
-                ax.set_ylim(-map_size, map_size)
-
             except:
                 return
 
         elif event.key == 'x':
             del x[:]
             del y[:]
-            ax.cla()
-            plt.grid()
-            ax.set_xlim(-map_size, map_size)
-            ax.set_ylim(-map_size, map_size)
 
             for dots in range(1, n+1):
                 if dots < 3:
@@ -210,6 +189,10 @@ def rand_gen(ax, fig, n, map_size, line_colour, point_colour):
         else:
             return
         
+        ax.cla()
+        plt.grid()
+        ax.set_xlim(-map_size, map_size)
+        ax.set_ylim(-map_size, map_size)
         ax.plot(x, y, '-', color=line_colour)
         ax.plot(x, y, '.', color=point_colour)
         fig.canvas.draw()
