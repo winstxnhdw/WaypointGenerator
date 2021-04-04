@@ -29,7 +29,7 @@ def main(args):
             x, y = rand_gen(ax, fig, args.random, map_size, line_colour, point_colour)
 
         elif args.click:
-            click_gen(ax, fig, map_size, line_colour, point_colour)
+            x, y = click_gen(ax, fig, map_size, line_colour, point_colour)
 
         else:
             raise Exception("Invalid argument.")
