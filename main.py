@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import random as rand
 
+from libs.check_intersect import intersects
+
 def main(args):
 
     def exit_handler():
@@ -112,9 +114,31 @@ def rand_gen(ax, fig, n, map_size, line_colour, point_colour):
 
     padding = 0.1 * map_size
 
-    for _ in range(0, n):
-        x.append(rand.uniform(-map_size + padding, map_size - padding))
-        y.append(rand.uniform(-map_size + padding, map_size - padding))
+    for dots in range(1, n+1):
+        if dots < 3:
+            x.append(rand.uniform(-map_size + padding, map_size - padding))
+            y.append(rand.uniform(-map_size + padding, map_size - padding))
+
+        else:
+            x.append(rand.uniform(-map_size + padding, map_size - padding))
+            y.append(rand.uniform(-map_size + padding, map_size - padding))
+            
+            c = 0
+            while c != dots-2:
+                c += 1
+                while True:
+                    seg1 = ((x[-1], y[-1]), (x[-2], y[-2]))
+                    seg2 = ((x[-1 - c], y[-1 - c]), (x[-2 - c], y[-2 - c]))
+
+                    if intersects(seg1, seg2) == True:
+                        x.pop()
+                        y.pop()
+                        x.append(rand.uniform(-map_size + padding, map_size - padding))
+                        y.append(rand.uniform(-map_size + padding, map_size - padding))
+                        c = 1
+
+                    else:
+                        break
 
     ax.plot(x, y, '-', color=line_colour)
     ax.plot(x, y, '.', color=point_colour)
@@ -147,9 +171,31 @@ def rand_gen(ax, fig, n, map_size, line_colour, point_colour):
             ax.set_xlim(-map_size, map_size)
             ax.set_ylim(-map_size, map_size)
 
-            for _ in range(0, n):
-                x.append(rand.uniform(-map_size + padding, map_size - padding))
-                y.append(rand.uniform(-map_size + padding, map_size - padding))
+            for dots in range(1, n+1):
+                if dots < 3:
+                    x.append(rand.uniform(-map_size + padding, map_size - padding))
+                    y.append(rand.uniform(-map_size + padding, map_size - padding))
+
+                else:
+                    x.append(rand.uniform(-map_size + padding, map_size - padding))
+                    y.append(rand.uniform(-map_size + padding, map_size - padding))
+                    
+                    c = 0
+                    while c != dots-2:
+                        c += 1
+                        while True:
+                            seg1 = ((x[-1], y[-1]), (x[-2], y[-2]))
+                            seg2 = ((x[-1 - c], y[-1 - c]), (x[-2 - c], y[-2 - c]))
+
+                            if intersects(seg1, seg2) == True:
+                                x.pop()
+                                y.pop()
+                                x.append(rand.uniform(-map_size + padding, map_size - padding))
+                                y.append(rand.uniform(-map_size + padding, map_size - padding))
+                                c = 1
+
+                            else:
+                                break
 
             stored.append([x.copy(), y.copy()])
 

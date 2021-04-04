@@ -32,6 +32,8 @@ $ python main.py -c
 </div>
 
 ## Randomly Generated Waypoints
+>The generated waypoints are passed piecewise through an algorithm that ensures that each line segment never intersects with each other.
+>
 ```bash
 $ python main.py -r <number-of-waypoints>
 ```
