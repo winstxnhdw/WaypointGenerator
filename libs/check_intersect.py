@@ -73,23 +73,26 @@ def intersects(seg1, seg2):
         return False
 
 def main():
-    pass
 
-if __name__ == '__main__':
     segment_one = ((53.43, -40.76), (33.53, -64.57))
     segment_two = ((40.91, -80.48), (17.83, -52.31))
-
     print(intersects(segment_one, segment_two))
-    x = [segment_one[0][0]]
-    y = [segment_one[0][1]]
-    x.append(segment_one[1][0])
-    y.append(segment_one[1][1])
+
+    x1 = [segment_one[0][0]]
+    y1 = [segment_one[0][1]]
+    x1.append(segment_one[1][0])
+    y1.append(segment_one[1][1])
+
     x2 = [segment_two[0][0]]
     y2 = [segment_two[0][1]]
     x2.append(segment_two[1][0])
     y2.append(segment_two[1][1])
+
     figure = plt.figure()
     ax = plt.axes()
-    ax.plot(x, y, '-o')
+    ax.plot(x1, y1, '-o')
     ax.plot(x2, y2, '-o')
     plt.show()
+
+if __name__ == '__main__':
+    main()
