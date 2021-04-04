@@ -1,6 +1,14 @@
 # WaypointGenerator
 A simple python script that uses the `pandas` library to export generated waypoints into a CSV file. Waypoints can either be user-selected or randomly selected.
 
+## Table of Contents
+- [Installation](#Installation)
+- [Usage](#Usage)
+- [User Selected Waypoints](#User-Selected-Waypoints)
+- [Randomly Generated Waypoints](#Randomly-Generated-Waypoints)
+- [Circular Generated Waypoints](#Circular-Generated-Waypoints)
+- [Additional Information](#Additional-Information)
+
 ## Installation
 ```bash
 # Install dependencies
