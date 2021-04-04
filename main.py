@@ -154,26 +154,30 @@ class RandomGenerator:
                 self.spawn_new_point()
 
             else:
-                # Spawn third point
+                # Spawn third and subsequent points
                 self.spawn_new_point()
                 
                 # Deletes and generates a new point if the segment intersects with any other segment
-                c = 0
-                while c != dots-2:
-                    c += 1
-                    while True:
-                        seg1 = ((self.x[-1], self.y[-1]), (self.x[-2], self.y[-2]))
-                        seg2 = ((self.x[-1 - c], self.y[-1 - c]), (self.x[-2 - c], self.y[-2 - c]))
+                self.search_for_intersects(dots)
 
-                        # Checks if the segments intersect
-                        if intersects(seg1, seg2) == True:
-                            self.x.pop()
-                            self.y.pop()
-                            self.spawn_new_point()
-                            c = 1
+    def search_for_intersects(self, dots):
 
-                        else:
-                            break
+        c = 0
+        while c != dots-2:
+            c += 1
+            while True:
+                seg1 = ((self.x[-1], self.y[-1]), (self.x[-2], self.y[-2]))
+                seg2 = ((self.x[-1 - c], self.y[-1 - c]), (self.x[-2 - c], self.y[-2 - c]))
+
+                # Checks if the segments intersect
+                if intersects(seg1, seg2) == True:
+                    self.x.pop()
+                    self.y.pop()
+                    self.spawn_new_point()
+                    c = 1
+
+                else:
+                    break
 
 def main(args):
 
