@@ -55,14 +55,15 @@ circle_wp_gen.py is primarily used to generate waypoints of a certain radius and
 $ cd circle
 $ python circle_wp_gen.py -a <x-radius> -b <y-radius>
 ```
-> The `numpy` library is required to run this script.
->
 ```yaml
 Optional arguments:
 -h, --help       show this help message and exit
 -a, --xradius    radius of an ellipse on the x-axis
 -b, --yradius    radius of an ellipse on the y-axis 
 ```
+> The `numpy` library is required to run this script.
+>
+
 <div align="center">
 	<img src="resources/circlegen.gif" />
 </div>
