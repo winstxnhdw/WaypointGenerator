@@ -57,16 +57,15 @@ $ python circle_wp_gen.py -a <x-radius> -b <y-radius>
 ```
 > The `numpy` library is required to run this script.
 >
-<div align="center">
-	<img src="resources/circlegen.gif" />
-</div>
-
 ```yaml
 Optional arguments:
 -h, --help       show this help message and exit
 -a, --xradius    radius of an ellipse on the x-axis
 -b, --yradius    radius of an ellipse on the y-axis 
 ```
+<div align="center">
+	<img src="resources/circlegen.gif" />
+</div>
 
 ## Additional Information
 Exported waypoints can be imported using the `pandas` library with the following block.
