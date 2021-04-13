@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 def main(args):
-
+    
     mode = input("Point or Angle mode (p/a): ")
 
     if args.xradius and args.yradius:
@@ -31,23 +31,23 @@ def main(args):
 
 def point_mode(a=1.0, b=1.0):
 
-    if a != b:
-        points = int(input("Number of points: "))
+    try:
+        if a != b:
+            points = int(input("Number of points: "))
 
-        print("\na: {}\nb: {}\nPoints: {}".format(a, b, points))
+            print("\na: {}\nb: {}\nPoints: {}".format(a, b, points))
 
-    else:
-        try:
+        else:
             r = float(input("Radius (m): "))
             points = int(input("Number of points: "))
             a = r
             b = r
-        
-        except:
-            print("Invalid input.")
-            point_mode()
 
-        print("\nRadius: ", r, "\nPoints: ", points)
+            print("\nRadius: ", r, "\nPoints: ", points)
+
+    except SystemExit:
+        print("Invalid input.")
+        point_mode()
 
     theta = 0
 
@@ -65,23 +65,23 @@ def point_mode(a=1.0, b=1.0):
 
 def angle_mode(a=1.0, b=1.0):
 
-    if a != b:
-        degrees = float(input("Angle in degrees: "))
+    try:
+        if a != b:
+            degrees = float(input("Angle in degrees: "))
 
-        print("\na: {}\nb: {}\nAngle: {}".format(a, b, degrees))
+            print("\na: {}\nb: {}\nAngle: {}".format(a, b, degrees))
 
-    else:
-        try:
+        else:
             r = float(input("Radius (m): "))
             degrees = float(input("Angle in degrees: "))
             a = r
             b = r
 
-        except:
-            print("Invalid input.")
-            angle_mode()
-
-        print("\nRadius: ", r, "\nAngle: ", degrees)
+            print("\nRadius: ", r, "\nAngle: ", degrees)
+    
+    except SystemExit:
+        print("Invalid input.")
+        angle_mode()
 
     angle = np.radians(degrees)
     theta = 0
