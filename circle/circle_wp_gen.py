@@ -45,7 +45,7 @@ def point_mode(a=1.0, b=1.0):
 
             print("\nRadius: ", r, "\nPoints: ", points)
 
-    except SystemExit:
+    except ValueError:
         print("Invalid input.")
         point_mode()
 
@@ -79,7 +79,7 @@ def angle_mode(a=1.0, b=1.0):
 
             print("\nRadius: ", r, "\nAngle: ", degrees)
     
-    except SystemExit:
+    except ValueError:
         print("Invalid input.")
         angle_mode()
 
