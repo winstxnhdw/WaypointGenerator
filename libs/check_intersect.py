@@ -35,7 +35,7 @@ def intersects(seg1, seg2):
         try:
             m1 = gradient(p1[0], p1[1], q1[0], q1[1])
 
-        except:
+        except ZeroDivisionError:
             return True
 
         m2 = gradient(p2[0], p2[1], q2[0], q2[1])
@@ -88,7 +88,7 @@ def main():
     x2.append(segment_two[1][0])
     y2.append(segment_two[1][1])
 
-    figure = plt.figure()
+    plt.figure()
     ax = plt.axes()
     ax.plot(x1, y1, '-o')
     ax.plot(x2, y2, '-o')

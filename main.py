@@ -39,7 +39,7 @@ class ClickGenerator:
                     self.x.pop()
                     self.y.pop()
 
-                except:
+                except IndexError:
                     pass
             
             # Clear all the points
@@ -53,7 +53,7 @@ class ClickGenerator:
                     self.x.append(self.x[0])
                     self.y.append(self.y[0])
 
-                except:
+                except IndexError:
                     pass
         
             else:
@@ -123,7 +123,7 @@ class RandomGenerator:
                     self.x.append(self.x[0])
                     self.y.append(self.y[0])
 
-                except:
+                except IndexError:
                     return
 
             else:
