@@ -71,6 +71,7 @@ def intersects(seg1, seg2):
         return False
 
 def main():
+    
     import matplotlib.pyplot as plt
     
     segment_one = ((53.43, -40.76), (33.53, -64.57))
