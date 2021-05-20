@@ -1,5 +1,3 @@
-import matplotlib.pyplot as plt
-
 def on_segment(p, q, r):
 
     if r[0] <= max(p[0], q[0]) and r[0] >= min(p[0], q[0]) and r[1] <= max(p[1], q[1]) and r[1] >= min(p[1], q[1]):
@@ -73,7 +71,8 @@ def intersects(seg1, seg2):
         return False
 
 def main():
-
+    import matplotlib.pyplot as plt
+    
     segment_one = ((53.43, -40.76), (33.53, -64.57))
     segment_two = ((40.91, -80.48), (17.83, -52.31))
     print(intersects(segment_one, segment_two))
