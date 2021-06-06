@@ -185,7 +185,7 @@ def main(args):
 
         axis = {'X-axis': x, 'Y-axis': y}
         df = pd.DataFrame(axis, columns= ['X-axis', 'Y-axis'])
-        df.to_csv("waypoints.csv", index = False)
+        df.to_csv("waypoints.csv", index=False)
 
     try:
         # Parameters
