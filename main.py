@@ -74,7 +74,7 @@ class ClickGenerator:
 
 class RandomGenerator:
 
-    def __init__(self, ax, fig, n, map_size, line_colour, point_colour):
+    def __init__(self, ax, fig, num_of_points, map_size, line_colour, point_colour):
         
         self.x = []
         self.y = []
@@ -82,10 +82,13 @@ class RandomGenerator:
 
         self.ax = ax
         self.fig = fig
-        self.n = n
+        self.num_of_points = num_of_points
         self.map_size = map_size
         self.line_colour = line_colour
         self.point_colour = point_colour
+
+        padding = 0.1 * self.map_size
+        self.spawn_area = (-self.map_size + padding, self.map_size - padding)
 
     def generate(self):
     
@@ -143,13 +146,12 @@ class RandomGenerator:
 
     def spawn_new_point(self):
 
-        padding = 0.1 * self.map_size
-        self.x.append(rand.uniform(-self.map_size + padding, self.map_size - padding))
-        self.y.append(rand.uniform(-self.map_size + padding, self.map_size - padding))
+        self.x.append(rand.uniform(*self.spawn_area))
+        self.y.append(rand.uniform(*self.spawn_area))
         
     def generate_segments(self):
 
-        for dots in range(1, self.n+1):
+        for dots in range(1, self.num_of_points + 1):
             if dots < 3:
                 self.spawn_new_point()
 
@@ -163,7 +165,7 @@ class RandomGenerator:
     def search_for_intersects(self, dots):
 
         c = 0
-        while c != dots-2:
+        while c != dots - 2:
             c += 1
             while True:
                 seg1 = ((self.x[-1], self.y[-1]), (self.x[-2], self.y[-2]))
