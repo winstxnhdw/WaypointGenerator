@@ -1,16 +1,14 @@
-import atexit
-import matplotlib.pyplot as plt
-import pandas as pd
-import random as rand
-
 from argparse import ArgumentParser
+from atexit import register
+from matplotlib import pyplot as plt
+from pandas import DataFrame
 from libs.click_generator import ClickGenerator
 from libs.random_generator import RandomGenerator
 
 def exit_handler(x, y):
 
     axis = {'X-axis': x, 'Y-axis': y}
-    df = pd.DataFrame(axis, columns= ['X-axis', 'Y-axis'])
+    df = DataFrame(axis, columns= ['X-axis', 'Y-axis'])
     df.to_csv("waypoints.csv", index=False)
 
 def main():
@@ -42,10 +40,10 @@ def main():
 
         plt.grid()
         plt.show()
-        atexit.register(exit_handler, x, y)
+        register(exit_handler, x, y)
 
     except KeyboardInterrupt:
-        atexit.register(exit_handler, x, y)
+        register(exit_handler, x, y)
 
 def parse_args():
 
