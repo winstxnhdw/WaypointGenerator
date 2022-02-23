@@ -1,33 +1,8 @@
-import argparse
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
-def main(args):
-    
-    mode = input("Point or Angle mode (p/a): ")
-
-    if args.xradius and args.yradius:
-        if mode == "p":
-            point_mode(args.xradius, args.yradius)
-
-        elif mode == "a":
-            angle_mode(args.xradius, args.yradius)
-
-        else:
-            print("Invalid input.")
-            main(args)
-    
-    else:
-        if mode == "p":
-            point_mode()
-
-        elif mode == "a":
-            angle_mode()
-            
-        else:
-            print("Invalid input.")
-            main(args)
+from argparse import ArgumentParser
+from matplotlib import pyplot as plt
 
 def point_mode(a=1.0, b=1.0):
 
@@ -35,7 +10,7 @@ def point_mode(a=1.0, b=1.0):
         if a != b:
             points = int(input("Number of points: "))
 
-            print("\na: {}\nb: {}\nPoints: {}".format(a, b, points))
+            print(f"\na: {a}\nb: {b}\nPoints: {points}")
 
         else:
             r = float(input("Radius (m): "))
@@ -43,7 +18,7 @@ def point_mode(a=1.0, b=1.0):
             a = r
             b = r
 
-            print("\nRadius: ", r, "\nPoints: ", points)
+            print(f"\nRadius: {r}\nPoints: {points}")
 
     except ValueError:
         print("Invalid input.")
@@ -69,7 +44,7 @@ def angle_mode(a=1.0, b=1.0):
         if a != b:
             degrees = float(input("Angle in degrees: "))
 
-            print("\na: {}\nb: {}\nAngle: {}".format(a, b, degrees))
+            print(f"\na: {a}\nb: {b}\nAngle: {degrees}")
 
         else:
             r = float(input("Radius (m): "))
@@ -77,56 +52,70 @@ def angle_mode(a=1.0, b=1.0):
             a = r
             b = r
 
-            print("\nRadius: ", r, "\nAngle: ", degrees)
+            print(f"\nRadius: {r}\nAngle: {degrees}")
     
     except ValueError:
         print("Invalid input.")
         angle_mode()
 
-    angle = np.radians(degrees)
-    theta = 0
+    theta = np.arange(0, 2*np.pi, np.deg2rad(degrees))
+    X = a * np.cos(theta)
+    Y = b * np.sin(theta)
+    X = np.concatenate((X, X[0]))
+    Y = np.concatenate((Y, Y[0]))
 
-    X = []
-    Y = []
-    runs = int(2*np.pi/angle)
-
-    for _ in np.arange(0, 2*np.pi, angle):
-        x = a * np.cos(theta)
-        y = b * np.sin(theta)
-        theta = theta + angle
-        X.append(x)
-        Y.append(y)
-
-    X.append(X[0])
-    Y.append(Y[0])
-
-    print("\n This program has looped ", runs, " times.")
+    print(f"\nThis program has looped {int(2*np.pi/angle)} times.")
 
     axis = {'X-axis': X, 'Y-axis': Y}
     df = pd.DataFrame(axis, columns= ['X-axis', 'Y-axis'])
     df.to_csv("waypoints.csv", index = False)
-    plot_waypoints(df)
+    plot_waypoints(X, Y)
 
-def plot_waypoints(df):
+def plot_waypoints(X, Y):
 
     plt.figure()
     ax = plt.axes()
     ax.set_aspect('equal', adjustable='box')
 
-    x = df['X-axis']
-    y = df['Y-axis']
+    ax.plot(X, Y)
     plt.xlabel("X-axis")
     plt.ylabel("Y-axis")
-    ax.plot(x, y)
     plt.show()
+
+def main():
+    
+    args, _ = parse_args()
+    mode = input("Point or Angle mode (p/a): ")
+
+    if args.xradius and args.yradius:
+        if mode == "p":
+            point_mode(args.xradius, args.yradius)
+
+        elif mode == "a":
+            angle_mode(args.xradius, args.yradius)
+
+        else:
+            print("Invalid input.")
+            main(args)
+    
+    else:
+        if mode == "p":
+            point_mode()
+
+        elif mode == "a":
+            angle_mode()
+            
+        else:
+            print("Invalid input.")
+            main(args)
 
 def parse_args():
 
-    parser = argparse.ArgumentParser(description='Generate a ellipse')
+    parser = ArgumentParser(description='Generate a ellipse')
     parser.add_argument('-a', '--xradius', type=float, metavar='', help='Radius of an ellipse on the x-axis')
     parser.add_argument('-b', '--yradius', type=float, metavar='', help='Radius of an ellipse on the y-axis')
+
     return parser.parse_known_args()
     
 if __name__ == "__main__":
-    args, _ = parse_args()
-    main(args)
+    main()
