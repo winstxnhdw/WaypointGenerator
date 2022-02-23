@@ -1,193 +1,21 @@
-import argparse
 import atexit
 import matplotlib.pyplot as plt
 import pandas as pd
 import random as rand
 
-from libs.check_intersect import intersects
+from argparse import ArgumentParser
+from libs.click_generator import ClickGenerator
+from libs.random_generator import RandomGenerator
 
-class ClickGenerator:
+def exit_handler(x, y):
 
-    def __init__(self, ax, fig, map_size, line_colour, point_colour):
-        
-        self.x = []
-        self.y = []
+    axis = {'X-axis': x, 'Y-axis': y}
+    df = pd.DataFrame(axis, columns= ['X-axis', 'Y-axis'])
+    df.to_csv("waypoints.csv", index=False)
 
-        self.ax = ax
-        self.fig = fig
-        self.map_size = map_size
-        self.line_colour = line_colour
-        self.point_colour = point_colour
+def main():
 
-    def generate(self):
-
-        def onclick(event):
-
-            self.x.append(event.xdata)
-            self.y.append(event.ydata)
-
-            self.ax.plot(self.x, self.y, '-', color=self.line_colour)
-            self.ax.plot(self.x, self.y, '.', color=self.point_colour)
-
-            self.fig.canvas.draw()
-
-        def onpress(event):
-
-            # Undo last point
-            if event.key == 'z':
-                try:
-                    self.x.pop()
-                    self.y.pop()
-
-                except IndexError:
-                    pass
-            
-            # Clear all the points
-            elif event.key == 'x':
-                del self.x[:]
-                del self.y[:]
-
-            # Connect the first and last points
-            elif event.key == 'c':
-                try:
-                    self.x.append(self.x[0])
-                    self.y.append(self.y[0])
-
-                except IndexError:
-                    pass
-        
-            else:
-                pass
-        
-            plt.cla()
-            plt.grid()
-            self.ax.set_xlim(-self.map_size, self.map_size)
-            self.ax.set_ylim(-self.map_size, self.map_size)
-            self.ax.plot(self.x, self.y, '-', color=self.line_colour)
-            self.ax.plot(self.x, self.y, '.', color=self.point_colour)
-            self.fig.canvas.draw()
-
-        self.fig.canvas.mpl_connect('button_press_event', onclick)
-        self.fig.canvas.mpl_connect('key_press_event', onpress)
-
-        return self.x, self.y
-
-class RandomGenerator:
-
-    def __init__(self, ax, fig, num_of_points, map_size, line_colour, point_colour):
-        
-        self.x = []
-        self.y = []
-        self.stored = []
-
-        self.ax = ax
-        self.fig = fig
-        self.num_of_points = num_of_points
-        self.map_size = map_size
-        self.line_colour = line_colour
-        self.point_colour = point_colour
-
-        padding = 0.1 * self.map_size
-        self.spawn_area = (-self.map_size + padding, self.map_size - padding)
-
-    def generate(self):
-    
-        self.generate_segments()
-        self.stored.append([self.x.copy(), self.y.copy()])
-
-        self.ax.plot(self.x, self.y, '-', color=self.line_colour)
-        self.ax.plot(self.x, self.y, '.', color=self.point_colour)
-
-        def onpress(event):
-
-            # Delete current points and return to a previously generated set of points
-            if event.key == 'z':
-                if len(self.stored) > 1:
-                    del self.x[:]
-                    del self.y[:]
-                    self.stored.pop()
-                    self.x.extend(self.stored[-1][0])
-                    self.y.extend(self.stored[-1][1])
-
-                else:
-                    return
-
-            # Generate a new set of points
-            elif event.key == 'x':
-                del self.x[:]
-                del self.y[:]
-
-                self.generate_segments()
-                self.stored.append([self.x.copy(), self.y.copy()])
-
-            # Connect the first and last points
-            elif event.key == 'c':
-                try:
-                    self.x.append(self.x[0])
-                    self.y.append(self.y[0])
-
-                except IndexError:
-                    return
-
-            else:
-                return
-            
-            plt.cla()
-            plt.grid()
-            self.ax.set_xlim(-self.map_size, self.map_size)
-            self.ax.set_ylim(-self.map_size, self.map_size)
-            self.ax.plot(self.x, self.y, '-', color=self.line_colour)
-            self.ax.plot(self.x, self.y, '.', color=self.point_colour)
-            self.fig.canvas.draw()
-
-        self.fig.canvas.mpl_connect('key_press_event', onpress)
-
-        return self.x, self.y
-
-    def spawn_new_point(self):
-
-        self.x.append(rand.uniform(*self.spawn_area))
-        self.y.append(rand.uniform(*self.spawn_area))
-        
-    def generate_segments(self):
-
-        for dots in range(1, self.num_of_points + 1):
-            if dots < 3:
-                self.spawn_new_point()
-
-            else:
-                # Spawn third and subsequent points
-                self.spawn_new_point()
-                
-                # Deletes and generates a new point if the segment intersects with any other segment
-                self.search_for_intersects(dots)
-
-    def search_for_intersects(self, dots):
-
-        c = 0
-        while c != dots - 2:
-            c += 1
-            while True:
-                seg1 = ((self.x[-1], self.y[-1]), (self.x[-2], self.y[-2]))
-                seg2 = ((self.x[-1 - c], self.y[-1 - c]), (self.x[-2 - c], self.y[-2 - c]))
-
-                # Checks if the segments intersect
-                if intersects(seg1, seg2) == True:
-                    self.x.pop()
-                    self.y.pop()
-                    self.spawn_new_point()
-                    c = 1
-
-                else:
-                    break
-
-def main(args):
-
-    def exit_handler():
-
-        axis = {'X-axis': x, 'Y-axis': y}
-        df = pd.DataFrame(axis, columns= ['X-axis', 'Y-axis'])
-        df.to_csv("waypoints.csv", index=False)
+    args, _ = parse_args()
 
     try:
         # Parameters
@@ -214,19 +42,18 @@ def main(args):
 
         plt.grid()
         plt.show()
-        atexit.register(exit_handler)
+        atexit.register(exit_handler, x, y)
 
     except KeyboardInterrupt:
-        atexit.register(exit_handler)
+        atexit.register(exit_handler, x, y)
 
 def parse_args():
 
-    parser = argparse.ArgumentParser(description='Generator type')
+    parser = ArgumentParser(description='Generator type')
     parser.add_argument('-r', '--random', type=int, metavar='', help='Generates a user-selected amount of random waypoints')
     parser.add_argument('-c', '--click', action='store_true', help='Generates user-selected waypoint positions')
 
     return parser.parse_known_args()
 
 if __name__ == '__main__':
-    args, _ = parse_args()
-    main(args)
+    main()
