@@ -1,3 +1,4 @@
+from rand import uniform
 from libs.waypoint_generator import WaypointGenerator
 from libs.check_intersect import intersects
 
@@ -69,8 +70,8 @@ class RandomGenerator(WaypointGenerator):
 
     def spawn_new_point(self):
 
-        self.x.append(rand.uniform(*self.spawn_area))
-        self.y.append(rand.uniform(*self.spawn_area))
+        self.x.append(uniform(*self.spawn_area))
+        self.y.append(uniform(*self.spawn_area))
         
     def generate_segments(self):
 
