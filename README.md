@@ -36,8 +36,11 @@ Optional arguments:
 ```
 
 >Press `Z` to undo a selected waypoint or revert to a previously generated set of waypoints.
+>
 >Press `X` to clear selected waypoints or to generate a new set of randomly generated waypoints.
+>
 >Press `C` to connect the last and first waypoints.
+>
 >Generated waypoints are **only exported at exit**.
 
 ## User Selected Waypoints

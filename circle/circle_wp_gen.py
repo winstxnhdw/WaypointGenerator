@@ -36,7 +36,7 @@ def point_mode(a=1.0, b=1.0):
     axis = {'X-axis': X, 'Y-axis': Y}
     df = pd.DataFrame(axis, columns= ['X-axis', 'Y-axis'])
     df.to_csv("waypoints.csv", index = False)
-    plot_waypoints(df)
+    plot_waypoints(X, Y)
 
 def angle_mode(a=1.0, b=1.0):
 
@@ -96,7 +96,7 @@ def main():
 
         else:
             print("Invalid input.")
-            main(args)
+            main()
     
     else:
         if mode == "p":
@@ -107,7 +107,7 @@ def main():
             
         else:
             print("Invalid input.")
-            main(args)
+            main()
 
 def parse_args():
 
