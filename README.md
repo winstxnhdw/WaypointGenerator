@@ -97,8 +97,7 @@ Exported waypoints can be imported using the `pandas` or `csv` module.
 ```python
 from pandas import read_csv
 
-dir_path = 'waypoints.csv'
-df = read_csv(dir_path)
+df = read_csv('waypoints.csv')
 x = df['X-axis'].values
 y = df['Y-axis'].values
 ```
