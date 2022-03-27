@@ -90,7 +90,7 @@ Optional arguments:
 
 ## Additional Information
 
-Exported waypoints can be imported using the `pandas` or `csv` module with the following block.
+Exported waypoints can be imported using the `pandas` or `csv` module.
 
 `pandas` module example
 
