@@ -1,4 +1,5 @@
-from rand import uniform
+from random import uniform
+from matplotlib import pyplot as plt
 from libs.waypoint_generator import WaypointGenerator
 from libs.check_intersect import intersects
 
@@ -8,9 +9,8 @@ class RandomGenerator(WaypointGenerator):
         
         super().__init__(ax, fig, map_size, line_colour, point_colour)
 
-        self.num_of_points = num_of_points
-
         padding = 0.1 * self.map_size
+        self.num_of_points = num_of_points
         self.spawn_area = (-self.map_size + padding, self.map_size - padding)
         self.stored = []
 

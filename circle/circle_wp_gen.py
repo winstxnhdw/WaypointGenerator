@@ -1,15 +1,21 @@
+import csv
 import numpy as np
-import pandas as pd
 
 from argparse import ArgumentParser
 from matplotlib import pyplot as plt
+
+def save_to_csv(X, Y):
+
+    with open("waypoints.csv", "w", newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(['x', 'y'])
+        writer.writerows(zip(X, Y))
 
 def point_mode(a=1.0, b=1.0):
 
     try:
         if a != b:
             points = int(input("Number of points: "))
-
             print(f"\na: {a}\nb: {b}\nPoints: {points}")
 
         else:
@@ -24,18 +30,11 @@ def point_mode(a=1.0, b=1.0):
         print("Invalid input.")
         point_mode()
 
-    theta = 0
-
-    X = []
-    Y = []
-
     theta = np.linspace(0, 2*np.pi, points)
     X = a * np.cos(theta)
     Y = b * np.sin(theta)
 
-    axis = {'X-axis': X, 'Y-axis': Y}
-    df = pd.DataFrame(axis, columns= ['X-axis', 'Y-axis'])
-    df.to_csv("waypoints.csv", index = False)
+    save_to_csv(X, Y)
     plot_waypoints(X, Y)
 
 def angle_mode(a=1.0, b=1.0):
@@ -61,14 +60,11 @@ def angle_mode(a=1.0, b=1.0):
     theta = np.arange(0, 2*np.pi, np.deg2rad(degrees))
     X = a * np.cos(theta)
     Y = b * np.sin(theta)
-    X = np.concatenate((X, X[0]))
-    Y = np.concatenate((Y, Y[0]))
+    X = np.concatenate((X, [X[0]]))
+    Y = np.concatenate((Y, [Y[0]]))
 
-    print(f"\nThis program has looped {int(2*np.pi/angle)} times.")
-
-    axis = {'X-axis': X, 'Y-axis': Y}
-    df = pd.DataFrame(axis, columns= ['X-axis', 'Y-axis'])
-    df.to_csv("waypoints.csv", index = False)
+    print(f"{len(X)} points have been generated")
+    save_to_csv(X, Y)
     plot_waypoints(X, Y)
 
 def plot_waypoints(X, Y):

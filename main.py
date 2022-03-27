@@ -1,15 +1,17 @@
+import csv
+
 from argparse import ArgumentParser
 from atexit import register
 from matplotlib import pyplot as plt
-from pandas import DataFrame
 from libs.click_generator import ClickGenerator
 from libs.random_generator import RandomGenerator
 
 def exit_handler(x, y):
 
-    axis = {'X-axis': x, 'Y-axis': y}
-    df = DataFrame(axis, columns= ['X-axis', 'Y-axis'])
-    df.to_csv("waypoints.csv", index=False)
+    with open("waypoints.csv", "w", newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(['x', 'y'])
+        writer.writerows(zip(x, y))
 
 def main():
 

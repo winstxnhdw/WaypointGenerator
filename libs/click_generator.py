@@ -1,3 +1,4 @@
+from matplotlib import pyplot as plt
 from libs.waypoint_generator import WaypointGenerator
 
 class ClickGenerator(WaypointGenerator):

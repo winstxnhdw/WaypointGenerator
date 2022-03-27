@@ -1,6 +1,6 @@
 # Waypoint Generator
 
-A simple python script that uses the `pandas` library to export generated waypoints into a CSV file. Waypoints can either be user-selected or randomly selected.
+A simple python script to export generated waypoints into a CSV file. Waypoints can either be user-selected or randomly selected.
 
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/winstxnhdw/WaypointGenerator.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/winstxnhdw/WaypointGenerator/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/winstxnhdw/WaypointGenerator.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/winstxnhdw/WaypointGenerator/context:python)
@@ -18,7 +18,7 @@ A simple python script that uses the `pandas` library to export generated waypoi
 
 ```bash
 # Install dependencies
-$ pip install -r requirements.txt
+$ pip install matplotlib
 ```
 
 ## Usage
@@ -90,13 +90,25 @@ Optional arguments:
 
 ## Additional Information
 
-Exported waypoints can be imported using the `pandas` library with the following block.
+Exported waypoints can be imported using the `pandas` or `csv` module with the following block.
+
+`pandas` module example
 
 ```python
-import pandas as pd
+from pandas import read_csv
 
 dir_path = 'waypoints.csv'
-df = pd.read_csv(dir_path)
-x = df['X-axis'].values.tolist()
-y = df['Y-axis'].values.tolist()
+df = read_csv(dir_path)
+x = df['X-axis'].values
+y = df['Y-axis'].values
+```
+
+`csv` module example
+
+```python
+import csv
+
+with open('waypoints.csv', newline='') as f:
+    rows = list(csv.reader(f, delimiter=','))
+    x, y = [row for row in zip(*rows[1:])]
 ```
