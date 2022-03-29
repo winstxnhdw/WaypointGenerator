@@ -71,7 +71,7 @@ $ python main.py -r <number-of-waypoints>
 
 ## Circular Generated Waypoints
 
-circle_wp_gen.py is primarily used to generate waypoints of a certain radius and smoothness. The user is given two different smoothness modes which can be configured via the command-line interface.
+`circle_wp_gen.py` is a CLI script for generating waypoints of a certain radius and smoothness. The user can choose to define smoothness with point density or the angle between every point.
 
 ```bash
 $ cd circle
