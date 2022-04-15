@@ -1,10 +1,10 @@
 def on_segment(p, q, r):
 
-    if r[0] <= max(p[0], q[0]) and r[0] >= min(p[0], q[0]) and r[1] <= max(p[1], q[1]) and r[1] >= min(p[1], q[1]):
-        return True
+    p1, p2 = p
+    q1, q2 = q
+    r1, r2 = r
 
-    else:
-        return False
+    return r1 <= max(p1, q1) and r1 >= min(p1, q1) and r2 <= max(p2, q2) and r2 >= min(p2, q2)
 
 def orientation(p, q, r):
 
@@ -37,12 +37,8 @@ def intersects(seg1, seg2):
             return True
 
         m2 = gradient(p2[0], p2[1], q2[0], q2[1])
-
-        if m1 == m2:
-            return True
         
-        else:
-            return False
+        return m1 == m2
 
     else:
         pass
