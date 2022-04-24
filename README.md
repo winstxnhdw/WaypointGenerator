@@ -112,5 +112,5 @@ import csv
 
 with open('waypoints.csv', newline='') as f:
     rows = list(csv.reader(f, delimiter=','))
-    x, y = [row for row in zip(*rows[1:])]
+    x, y = [[float(i) for i in row] for row in zip(*rows[1:])]
 ```
