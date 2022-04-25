@@ -19,7 +19,7 @@ A simple python script to export generated waypoints into a CSV file. Waypoints 
 Install dependencies
 
 ```bash
-$ pip install matplotlib
+pip install matplotlib
 ```
 
 Optional install for circular waypoint generation
