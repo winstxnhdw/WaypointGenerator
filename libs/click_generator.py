@@ -7,9 +7,33 @@ class ClickGenerator(WaypointGenerator):
         
         super().__init__(ax, fig, map_size, line_colour, point_colour)
 
+        self.onpress_dict = {
+            'z': self.remove_last_point,
+            'x': self.remove_all_points,
+            'c': self.connect_ends
+        }
+
         self.use_z = use_z
         self.scroll_sensitivity = scroll_sensitivity if scroll_sensitivity else 1
         self.z = []
+
+    def remove_last_point(self):
+
+        self.x.pop()
+        self.y.pop()
+        self.z.pop()
+
+    def remove_all_points(self):
+
+        del self.x[:]
+        del self.y[:]
+        del self.z[:]
+
+    def connect_ends(self):
+
+        self.x.append(self.x[0])
+        self.y.append(self.y[0])
+        self.z.append(self.z[0])
 
     def generate(self):
 
@@ -31,6 +55,9 @@ class ClickGenerator(WaypointGenerator):
 
         def onclick(event):
             
+            if not event.xdata or not event.ydata:
+                return
+
             self.x.append(event.xdata)
             self.y.append(event.ydata)
             self.z.append(self.z[-1] if self.z else 0)
@@ -42,27 +69,12 @@ class ClickGenerator(WaypointGenerator):
             if not self.z:
                 return
 
-            # Undo last point
-            elif event.key == 'z':
-                self.x.pop()
-                self.y.pop()
-                self.z.pop()
-                
-            # Clear all the points
-            elif event.key == 'x':
-                del self.x[:]
-                del self.y[:]
-                del self.z[:]
+            func = self.onpress_dict.get(event.key)
 
-            # Connect the first and last points
-            elif event.key == 'c':
-                self.x.append(self.x[0])
-                self.y.append(self.y[0])
-                self.z.append(self.z[0])
-
-            else:
+            if not func:
                 return
 
+            func()
             update_plot()
 
         def onscroll(event):
