@@ -43,7 +43,7 @@ class ClickGenerator(WaypointGenerator):
                 return
 
             # Undo last point
-            if event.key == 'z':
+            elif event.key == 'z':
                 self.x.pop()
                 self.y.pop()
                 self.z.pop()
@@ -61,7 +61,7 @@ class ClickGenerator(WaypointGenerator):
                 self.z.append(self.z[0])
 
             else:
-                pass
+                return
 
             update_plot()
 
@@ -70,7 +70,7 @@ class ClickGenerator(WaypointGenerator):
             if not self.z:
                 return
 
-            if event.button == 'up':
+            elif event.button == 'up':
                 self.z[-1] += self.scroll_sensitivity
 
             elif event.button == 'down':
