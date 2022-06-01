@@ -50,7 +50,9 @@ Optional arguments:
 >
 >Press `C` to connect the last and first waypoints.
 >
->Scroll up or down to change the z-axis of the waypoint if the `--three-dimensional` flag is used.
+>Scroll `up` to increase the z-axis of the waypoint if the `--three-dimensional` flag is used.
+>
+>Scroll `down` to decrease the z-axis of the waypoint if the `--three-dimensional` flag is used.
 >
 >Generated waypoints are **only exported at exit**.
 
