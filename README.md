@@ -37,9 +37,11 @@ $ python main.py <flag> <value>
 
 ```yaml
 Optional arguments:
--h, --help      show this help message and exit
--r, --random    generates a user-selected amount of random waypoints
--c, --click     generates user-selected waypoint positions   
+-h,  --help                 show this help message and exit
+-r,  --random               generates a user-selected amount of random waypoints
+-c,  --click                generates user-selected waypoint positions   
+-3d, --three-dimensional    allows user to change the z-axis of a created waypoint
+--scroll-sensitivity        sets the scroll sensitivity of the mouse when setting the z-axis
 ```
 
 >Press `Z` to undo a selected waypoint or revert to a previously generated set of waypoints.
@@ -48,13 +50,15 @@ Optional arguments:
 >
 >Press `C` to connect the last and first waypoints.
 >
+>Scroll up or down to change the z-axis of the waypoint if the `--three-dimensional` flag is used.
+>
 >Generated waypoints are **only exported at exit**.
 
 ## User Selected Waypoints
 
 
 ```bash
-$ python main.py -c
+$ python main.py -c -3d --scroll-sensitivity 0.4
 ```
 
 <div align="center">
