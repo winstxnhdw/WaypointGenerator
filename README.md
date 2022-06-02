@@ -40,8 +40,8 @@ Optional arguments:
 -h,  --help                 show this help message and exit
 -r,  --random               generates a user-selected amount of random waypoints
 -c,  --click                generates user-selected waypoint positions   
--3d, --three-dimensional    allows user to change the z-axis of a created waypoint
---scroll-sensitivity        sets the scroll sensitivity of the mouse when setting the z-axis
+-z, --three-dimensional     allows user to change the z-axis of a created waypoint
+-s, --scroll-sensitivity    sets the scroll sensitivity of the mouse when setting the z-axis
 ```
 
 >Press `Z` to undo a selected waypoint or revert to a previously generated set of waypoints.
@@ -68,7 +68,7 @@ $ python main.py -c
 </div>
 
 ```bash
-$ python main.py -c -3d --scroll-sensitivity 1
+$ python main.py -c -z --scroll-sensitivity 1
 ```
 
 <div align="center">

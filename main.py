@@ -61,8 +61,8 @@ def parse_args():
     parser = ArgumentParser(description='Generator type')
     parser.add_argument('-r', '--random', type=int, metavar='', help='Generates a user-selected amount of random waypoints')
     parser.add_argument('-c', '--click', action='store_true', help='Generates user-selected waypoint positions')
-    parser.add_argument('-3d', '--three-dimension', action='store_true', help='Allows user to change the z-axis of a created waypoint')
-    parser.add_argument('--scroll-sensitivity', type=float, metavar='', help='Sets the scroll sensitivity of the mouse when setting the z-axis')
+    parser.add_argument('-z', '--three-dimension', action='store_true', help='Allows user to change the z-axis of a created waypoint')
+    parser.add_argument('-s', '--scroll-sensitivity', type=float, metavar='', help='Sets the scroll sensitivity of the mouse when setting the z-axis')
 
     return parser.parse_known_args()
 
