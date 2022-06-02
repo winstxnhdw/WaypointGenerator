@@ -60,11 +60,19 @@ Optional arguments:
 
 
 ```bash
-$ python main.py -c -3d --scroll-sensitivity 0.4
+$ python main.py -c
 ```
 
 <div align="center">
-	<img src="resources/clickgen.gif" />
+    <img src="resources/clickgen.gif" />
+</div>
+
+```bash
+$ python main.py -c -3d --scroll-sensitivity 1
+```
+
+<div align="center">
+    <img src="resources/clickgen-3d.gif" />
 </div>
 
 ## Randomly Generated Waypoints
@@ -76,7 +84,7 @@ $ python main.py -r <number-of-waypoints>
 ```
 
 <div align="center">
-	<img src="resources/randgen.gif" />
+    <img src="resources/randgen.gif" />
 </div>
 
 ## Circular Generated Waypoints
@@ -98,7 +106,7 @@ Optional arguments:
 > The `numpy` library is required to run this script.
 
 <div align="center">
-	<img src="resources/circlegen.gif" />
+    <img src="resources/circlegen.gif" />
 </div>
 
 ## Additional Information
