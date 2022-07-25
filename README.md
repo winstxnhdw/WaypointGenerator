@@ -1,9 +1,9 @@
 # Waypoint Generator
 
-A simple python script to export generated waypoints into a CSV file. Waypoints can either be user-selected or randomly selected.
-
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/winstxnhdw/WaypointGenerator.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/winstxnhdw/WaypointGenerator/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/winstxnhdw/WaypointGenerator.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/winstxnhdw/WaypointGenerator/context:python)
+
+A simple python script to export generated waypoints into a CSV file. Waypoints can either be user-selected or randomly selected.
 
 ## Table of Contents
 
