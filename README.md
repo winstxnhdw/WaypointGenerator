@@ -34,11 +34,11 @@ $ python main.py <flag> <value>
 
 ```yaml
 Optional arguments:
--h,  --help                 show this help message and exit
--r,  --random               generates a user-selected amount of random waypoints
--c,  --click                generates user-selected waypoint positions   
--z, --three-dimensional     allows user to change the z-axis of a created waypoint
--s, --scroll-sensitivity    sets the scroll sensitivity of the mouse when setting the z-axis
+  -h,  --help                 show this help message and exit
+  -r,  --random               generates a user-selected amount of random waypoints
+  -c,  --click                generates user-selected waypoint positions   
+  -z, --three-dimensional     allows user to change the z-axis of a created waypoint
+  -s, --scroll-sensitivity    sets the scroll sensitivity of the mouse when setting the z-axis
 ```
 
 >Press `Z` to undo a selected waypoint or revert to a previously generated set of waypoints.
@@ -95,9 +95,9 @@ $ python circle_wp_gen.py -a <x-radius> -b <y-radius>
 
 ```yaml
 Optional arguments:
--h, --help       show this help message and exit
--a, --xradius    radius of an ellipse on the x-axis
--b, --yradius    radius of an ellipse on the y-axis 
+  -h, --help       show this help message and exit
+  -a, --xradius    radius of an ellipse on the x-axis
+  -b, --yradius    radius of an ellipse on the y-axis 
 ```
 
 > The `numpy` library is required to run this script.
